@@ -21,11 +21,7 @@
 	</properties>
 	<dependencies>
 		
-		<!-- JPA を使用するための設定 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -71,6 +67,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+
+		<!-- JPA を使用するための設定 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
 		<!-- JDBC を使用するための設定(ojdbc11.jar を利用するための設定) -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
