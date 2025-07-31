@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.TodoManager.entity.Importance;
 import com.example.TodoManager.entity.Personal;
 import com.example.TodoManager.entity.Task;
+import com.example.TodoManager.repository.ImportanceRepository;
 import com.example.TodoManager.repository.PersonalRepository;
 import com.example.TodoManager.repository.TaskRepository;
 
@@ -19,6 +21,9 @@ public class IndexController {
 
 	@Autowired
 	TaskRepository tasrepo;
+	
+	@Autowired
+	ImportanceRepository imprepo;
 	
 	@GetMapping("/")
 	public String Test() {
@@ -36,6 +41,9 @@ public class IndexController {
 		
 		List<Task> tasks = tasrepo.findAll();
 		for(Task task : tasks) System.out.println(task.getTaskName());
+		
+		List<Importance> imps = imprepo.findAll();
+		for(Importance imp : imps) System.out.println(imp.getImportanceName());
 		
 		return "index";
 	}
