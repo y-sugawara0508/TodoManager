@@ -2,6 +2,7 @@ package com.example.TodoManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import com.example.TodoManager.repository.TaskRepository;
 
 import ch.qos.logback.core.model.Model;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class AuthController {
@@ -39,8 +41,10 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public String login(LoginForm loginForm,Model model) {
-
+	public String login(@Valid@ModelAttribute LoginForm loginForm, BindingResult result, HttpSession session,Model model) {
+		if(result.hasErrors()) {
+			return "/login";
+		}
 		// ログインパスワードとかを受け取る
 		String address = loginForm.getAddress();
 
@@ -58,9 +62,7 @@ public class AuthController {
 
 			//個人情報が見つからない場合、エラーメッセージを表示してログイン画面に戻る
 			//model.addAttribute("errMessage", "メールアドレスまたはパスワードが間違っています");
-
 			return "login";
-
 		}
 	}
 
