@@ -13,12 +13,12 @@
 	<div th:object="${loginForm}">
 		<form method="post" th:action="@{/login}">
 			<div>メールアドレス</div>
-			<input type="text" th:field="*{address}" />
-			<span th:errors="*{address}"></span><br>
+			<input type="text" th:field="*{address}" /><br>
 			<div>パスワード</div>
-			<input type="password" th:field="*{personalPass}" />
+			<input type="password" th:field="*{personalPass}" /><br>
 			<span th:errors="*{personalPass}"></span><br>
 			<input type="submit" value="ログイン" />
+			
 		</form>
 	</div>
 </body>
