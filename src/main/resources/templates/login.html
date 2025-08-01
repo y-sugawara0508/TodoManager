@@ -14,8 +14,10 @@
 		<form method="post" th:action="@{/login}">
 			<div>メールアドレス</div>
 			<input type="text" th:field="*{address}" />
+			<span th:errors="*{address}"></span><br>
 			<div>パスワード</div>
 			<input type="password" th:field="*{personalPass}" />
+			<span th:errors="*{personalPass}"></span><br>
 			<input type="submit" value="ログイン" />
 		</form>
 	</div>
