@@ -71,5 +71,21 @@ public class AuthController {
 
 		return "menu";
 	}
+	
+	/**
+	 * ログアウト処理
+	 * @return ログイン画面にリダイレクト
+	 */
+	@GetMapping("/logout")
+ 
+	public String logout() {
+ 
+		//セッションの破棄
+		session.invalidate();
+ 
+		return "login";
+ 
+	}
+
 
 }
