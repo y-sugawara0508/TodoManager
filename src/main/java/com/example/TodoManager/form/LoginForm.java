@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 public class LoginForm {
 	
 		/** メールアドレス*/
+		@NotBlank
 		@NotNull
 		@Size(max=200)
 		private String address;
