@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.TodoManager.entity.Personal;
 import com.example.TodoManager.form.LoginForm;
-import com.example.TodoManager.repository.ImportanceRepository;
 import com.example.TodoManager.repository.PersonalRepository;
-import com.example.TodoManager.repository.TaskRepository;
 
 import ch.qos.logback.core.model.Model;
 import jakarta.servlet.http.HttpSession;
@@ -20,58 +18,87 @@ import jakarta.validation.Valid;
 @Controller
 public class AuthController {
 
+	/**
+	 * ユーザー情報検索用オブジェクト
+	 */
 	@Autowired
-	PersonalRepository pelrepo;
-
-	@Autowired
-	TaskRepository tasrepo;
-
-	@Autowired
-	ImportanceRepository imprepo;
+	PersonalRepository personalRepository;
 
 	@Autowired
 	HttpSession session;
 
+	/**
+	 * ログイン画面を表示するメソッド
+	 * "/"GETリクエストを受け取ることで実行
+	 * 
+	 * @param loginForm ログイン入力情報格納オブジェクト
+	 * @return ビュー名："login"
+	 */
 	@GetMapping("/")
 	public String showLoginForm(@ModelAttribute LoginForm loginForm) {
 
+		// セッションの初期化(放棄)
 		session.invalidate();
 
+		// ビューを返す
 		return "login";
 	}
 
+	/**
+	 * ログイン処理を行うメソッド
+	 * "/login"POSTリクエストを受け取ることで実行
+	 * 
+	 * @param loginForm ログイン入力情報格納オブジェクト
+	 * @param result 入力チェック結果格納オブジェクト
+	 * @param model 情報格納オブジェクト
+	 * @return
+	 */
 	@PostMapping("/login")
-	public String login(@Valid@ModelAttribute LoginForm loginForm, BindingResult result, HttpSession session,Model model) {
-		if(result.hasErrors()) {
-			return "/login";
+	public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, HttpSession session,
+			Model model) {
+
+		// 入力チェック結果を確認
+		if (result.hasErrors()) {
+
+			// 入力エラーがある場合は、ログイン画面を再表示（エラー表示を行う）
+			return "login";
 		}
-		// ログインパスワードとかを受け取る
+
+		// アドレスを取得
 		String address = loginForm.getAddress();
 
-		// 入力されたパスワードを取得
+		// パスワードを取得
 		String personalPass = loginForm.getPersonalPass();
-		
-		//メールアドレスとパスワードでDBを検索し、一致する社員情報を取得
-		Personal personal = pelrepo.findByAddressAndPersonalPass(address, personalPass);
 
-		//該当する社員情報が存在する場合(ログイン成功)		
-		if (personal != null) {			
+		// 受け取った情報からユーザーを検索
+		// FIX: アドレスもパスワードも一意制約がない為2つ以上のデータが見つかってしまう状態。
+		Personal personal = personalRepository.findByAddressAndPersonalPass(address, personalPass);
+
+		//該当するユーザー情報が存在するかどうか		
+		if (personal != null) {
+			// 存在する場合、メニュー画面にリダイレクトを行う
 			return "redirect:/menu";
 
 		} else {
-
-			//個人情報が見つからない場合、エラーメッセージを表示してログイン画面に戻る
-			//model.addAttribute("errMessage", "メールアドレスまたはパスワードが間違っています");
+			// 存在しない場合、ログイン画面を再表示（エラー表示を行う）
 			return "login";
 		}
 	}
 
-	@GetMapping("/menu")
-	public String showMenu(Model model) {
+	/**
+	 * ログアウト処理を行うメソッド
+	 * "/logout"GETリクエストを受け取ることで実行
+	 * 
+	 * @return ログイン画面にリダイレクト
+	 */
+	@GetMapping("/logout")
+	public String logout() {
 
+		//セッションの破棄
 		session.invalidate();
 
-		return "menu";
-	}
+		// ログイン画面にリダイレクトを行う
+		return "redirect:/";
 
+	}
 }
