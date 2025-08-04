@@ -80,13 +80,13 @@ public class AuthController {
 	 */
 	@GetMapping("/logout")
  
-	public String logout() {
+	public String logout(HttpSession session) {
  
 		//セッションの破棄
 		session.invalidate();
  
-		return "login";
- 
+		return "redirect:/";
+
 	}
 
 
