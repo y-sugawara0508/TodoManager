@@ -101,7 +101,7 @@ public class Task {
 		return archiveFlag;
 	}
 
-	public void setArchiveFrag(Boolean archiveFrag) {
+	public void setArchiveFlag(Boolean archiveFrag) {
 		this.archiveFlag = archiveFrag;
 	}
 
@@ -120,4 +120,5 @@ public class Task {
 	public void setPersonalId(Integer personalId) {
 		this.personalId = personalId;
 	}
-}
+
+}	
