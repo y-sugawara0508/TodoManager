@@ -40,6 +40,7 @@ public class TaskRegistContoller {
 	@PostMapping("/task/regist/check")
 	public String taskRegistCheck(@Valid @ModelAttribute TaskForm form, BindingResult result, Model model, HttpSession session) {
 		if(result.hasErrors()) {
+			System.out.println("ああ");
 			System.out.println(result.hasErrors());
 			return "task/regist/input";
 		}else {
