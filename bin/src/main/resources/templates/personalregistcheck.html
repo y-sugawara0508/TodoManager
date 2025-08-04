@@ -9,21 +9,51 @@
 <body>
 	<h1>新規ユーザ登録確認画面</h1>
 
+	<!-- 入力フォームにて利用:パスワード入力の目のアイコンの表示に利用-->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+	<script>
+		function pushHideButton() {
+			// 入力情報を取得
+			var passText = document.getElementById("passText");
+			// button情報を取得
+			var eyeButton = document.getElementById("eyeButton");
+			// 表示種別が現在"text" であるばらば
+			if (passText.type === "text") {
+
+				// 表示切替を行う
+				passText.type = "password";
+				eyeButton.className = "fa fa-eye";
+			} else {
+				// 表示切替を行う
+				passText.type = "text";
+				eyeButton.className = "fa fa-eye-slash";
+			}
+		}
+	</script>
+
+
+
 	<!-- 名前の表示 -->
-	<div>名前：</div>
-    <div th:text="${personalForm.personalName}"></div>
+	<div>名前：<input type="text" class="input-box" th:field="${personalForm.personalName}" readonly /></input>
+	</div>
+
 
 	<!-- 生年月日の表示 -->
-	<div>生年月日：</div>
-	<div th:text="${personalForm.birthday}"></div>
+	<div>生年月日：<input type="text" class="input-box" th:field="${personalForm.birthday}" readonly /></input>
+	</div>
+
 
 	<!-- メールアドレスの表示 -->
-	<div>メールアドレス：</div>
-	<div th:text="${personalForm.address}"></div>
+	<div>メールアドレス：<input type="text" class="input-box" th:field="${personalForm.address}" readonly /></input></div>
+	</div>
 
-	<!-- パスワードの表示 -->
-	<div>パスワード：</div>
-	<div th:text="${personalForm.personalPass}"></div>
+	<div class="input">パスワード:
+			<input type="password" id="passText" th:value="${personalForm.personalPass}" readonly />
+			<span id="eyeButton" class="fa fa-eye" onclick="pushHideButton()"></span>
+		</div>
+	</div>
+
 
 	<!-- 登録処理用フォーム（hiddenでデータを送信） -->
 
@@ -35,12 +65,13 @@
 			<input type="hidden" th:field="*{personalPass}" />
 			<input type="submit" value="登録" />
 		</form>
+		
 	</div>
 
 
 	<!-- 入力画面に戻るフォーム（hiddenでデータを保持） -->
 	<div method="post" th:object="${personalForm}">
-		<form th:action="@{/personalregistinput}">		
+		<form th:action="@{/personalregistinput}">
 			<input type="submit" value="戻る" />
 		</form>
 	</div>

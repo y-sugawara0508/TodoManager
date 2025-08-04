@@ -37,6 +37,8 @@ public class PersonalRegistController {
 	// 入力画面に戻る
 	@PostMapping("/personalregistinput")
 	public String backPersonalRegistForm(@ModelAttribute PersonalForm personalForm, Model model) {
+		
+		
 		return "personalregistinput";
 	}
 
@@ -59,7 +61,7 @@ public class PersonalRegistController {
 			return "redirect:/personalregistinput";
 		}
 
-		personalForm.setPersonalId(null); // ← 念のためIDをnullに
+		personalForm.setPersonalId(null); 
 		Personal personal = new Personal();
 		BeanUtils.copyProperties(personal, personalForm);
 
