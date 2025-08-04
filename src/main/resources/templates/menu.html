@@ -1,96 +1,144 @@
-<!DOCTYPE html><html><head><title>タスク管理アプリ</title><style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        td.empty {
-            background-color: #eaeaea;
-        }
-        #calendar {
-            margin-top: 30px;
-            width: 100%;
-        }
-        #clock {
-            margin-top: 20px;
-            font-size: 24px;
-            text-align: center;
-            color: #555;
-        }
-    </style></head><body><!-- Todoセクション --><section id="todo"><h1>Todo</h1><table><tr><th>No</th><th>タスク名</th><th>完了期限日時</th><th>重要度</th><th>完了</th></tr><tr><td>1</td><td>会議資料の準備</td><td>2025/07/20 10:00</td><td>通常</td><td>完了</td></tr><tr><td>2</td><td>買い物</td><td>2025/07/20 19:00</td><td>通常</td><td>完了</td></tr><tr><td>3</td><td>映画館に行く</td><td>2025/07/29 18:00</td><td>最重要</td><td>完了</td></tr><tr><td>4</td><td>定期購入</td><td>2025/08/01 08:00</td><td>重要</td><td>完了</td></tr></table></section><!-- カレンダーセクション --><section id="calendar"><h2 id="month-year"></h2><table><thead><tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr></thead><tbody id="calendar-body"><!-- JavaScriptで動的に生成 --></tbody></table></section><!-- デジタル時計セクション --><section id="clock"><h2>デジタル時計</h2><p id="time">14:48:41</p></section><!-- JavaScriptで動的な時計とカレンダー --><script>
-        // デジタル時計の更新
-        function updateClock() {
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	できたー
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<meta charset="UTF-8">
+<title>Todo</title>
+<style>
+	body{	 
+		font-family: Arial, sans-serif;
+		margin: 20px;
+		padding: 20px;
+	}
+	h1, h2 {
+		color: #333;
+	}
+	
+	table{
+		border-collapse: collapse;		
+		width: 100%;
+		margin-top: 20px;
+		
+	}
+	th, td {
+		border: 1px solid #ccc;
+		padding: 10px;
+		text-align: center;
+	}
+	th {
+		background-color: aqua;
+	}
+	td:empty{
+		background-color: #f4f4f4;
+	}		
+	#calender {
+		margin-right: 10px;
+		padding: 20px;
+	}
+	#clock {
+		margin-left: 10px;
+		font-size: 24px;
+		text-align: center;
+		color: #555;
+	 }
+	
+</style>
+</head>	
+
+<body>
+	できたー
+</body>
+</html>
+<!-- Todoセクション -->
+<section id ="todo">
+<h1>Todo</h1>
+<table><tr>
+	<th>No</th><th>タスク名</th><th>完了期限日時</th><th>重要度</th><th>完了</th>
+</tr></table>
+</section>
+
+<!-- カレンダーセクション-->
+<script>
+function generateCalender() {
+	    const now = new Date();
+	    const hours = now.getHours().toString().padStart(2, '0');
+	    const minutes = now.getMinutes(). toString(). padStart(2, '0');
+	    const second = now.getSeconds(). toString(). padStart(2, '0');
+	    document.getElementById('time').textContent = '${hours}:${minutes}:${seconds}';
+	  }  
+	//	const calenderBody = document.getElementById('calender-body');
+	//	calenderBody.innerHTML = '';
+	//	const firstDay = new Date(year, month, 1).getDay();
+	//	const daysInMonth = new Date(year, month +1, 0).getDate();
+		
+		let date = 1;
+		for (let i = 0; i < 6; i++){
+			const row = document.createElement('tr');
+			for (let j = 0; j < 7; j++){
+				const cell=document.createElement('td');
+				if (i === 0 && j < firstDay){
+					cell.textContent = '';					
+				} else if (date > daysInMonth){
+					cell.textContent = '';
+				} else {
+					cell.textContent = date;
+					date++;
+				}
+				row.appendChild(cell);
+			}
+			calenderBody.appendChild(row);
+		}
+	}	
+	
+</script>
+	
+<section id="calender">
+<h2>Calender</h2>
+<table><thead><tr>
+	<th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
+</tr></table></table>
+</section>
+	
+<ul><li th:each="item : ${menuItem}" th:text="${item}">	</li></ul>
+<div id="calender">
+
+
+
+<div id="clock">
+<h2>デジタル時計</h2><p id="time"></p>
+</div>
+ <!-- デジタル時計を表示する関数 -->
+ 
+<script>
+	
+	
+	function updateClock(){
+		const now = new Date();
+		const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
             document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
         }
-        setInterval(updateClock, 1000); // 毎秒更新
-        updateClock(); // ページロード時に即時更新
-
-        // 動的カレンダーの生成
-        function generateCalendar(year, month) {
-            const calendarBody = document.getElementById('calendar-body');
-            calendarBody.innerHTML = ''; // カレンダーをクリア
-
-            const firstDay = new Date(year, month, 1).getDay(); // 月の最初の日の曜日
-            const daysInMonth = new Date(year, month + 1, 0).getDate(); // 月の日数
-
-            let date = 1;
-            for (let i = 0; i < 6; i++) { // 最大6行（5週＋1行）
-                const row = document.createElement('tr');
-                for (let j = 0; j < 7; j++) { // 7列（曜日）
-                    const cell = document.createElement('td');
-                    if (i === 0 && j < firstDay) {
-                        // 月の最初の日まで空白を入れる
-                        cell.classList.add('empty');
-                        cell.textContent = '';
-                    } else if (date > daysInMonth) {
-                        // 月の日数を超えたら空白を入れる
-                        cell.classList.add('empty');
-                        cell.textContent = '';
-                    } else {
-                        cell.textContent = date;
-                        date++;
-                    }
-                    row.appendChild(cell);
-                }
-                calendarBody.appendChild(row);
-            }
-        }
-
-        function updateCalendar() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth(); // 0:1月, 1:2月, ..., 11:12月
-            const monthNames = [
-                "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"
-            ];
-            
-            // 月と年を表示
-            document.getElementById('month-year').textContent = `${year}年 ${monthNames[month]}`;
-            
-            // カレンダーを生成
-            generateCalendar(year, month);
-        }
-
-        // 初期化
-        updateCalendar();
-    </script></body></html>
+       
+        const now = new Date();
+        generateCalender(now.getFullYear(), now.getMonth());
+        setInterval(updateClock, 1000);
+             
+</script>
+</body>		
+</html>

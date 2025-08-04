@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>新規ユーザ登録確認画面</title>
+</head>
+
+<body>
+	<h1>新規ユーザ登録確認画面</h1>
+
+	<!-- 名前の表示 -->
+	<div>名前：</div>
+    <div th:text="${personalForm.personalName}"></div>
+
+	<!-- 生年月日の表示 -->
+	<div>生年月日：</div>
+	<div th:text="${personalForm.birthday}"></div>
+
+	<!-- メールアドレスの表示 -->
+	<div>メールアドレス：</div>
+	<div th:text="${personalForm.address}"></div>
+
+	<!-- パスワードの表示 -->
+	<div>パスワード：</div>
+	<div th:text="${personalForm.personalPass}"></div>
+
+	<!-- 登録処理用フォーム（hiddenでデータを送信） -->
+
+	<div th:object="${personalForm}">
+		<form method="post" th:action="@{/personalregistcomplete}">
+			<input type="hidden" th:field="*{personalName}" />
+			<input type="hidden" th:field="*{birthday}" />
+			<input type="hidden" th:field="*{address}" />
+			<input type="hidden" th:field="*{personalPass}" />
+			<input type="submit" value="登録" />
+		</form>
+	</div>
+
+
+	<!-- 入力画面に戻るフォーム（hiddenでデータを保持） -->
+	<div method="post" th:object="${personalForm}">
+		<form th:action="@{/personalregistinput}">		
+			<input type="submit" value="戻る" />
+		</form>
+	</div>
+
+</body>
+
+</html>
