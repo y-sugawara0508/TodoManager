@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{common/layout_4block :: layout(~{::body/content()})}">
+ 
+<head>
+	<title>タスク管理アプリ</title>
+	<meta charset="UTF-8" />
+</head>
+ 
+<body class="admin user_list">
+	<!-- セッション中にユーザ情報が存在する場合のみ以下の処理を実行する。 -->
+	<!-- なお、セッション中のユーザ情報がない（null）の場合、-->
+	<!-- フィルターの処理により、当該Thymeleaf処理完了後にログイン画面にリダイレクトする。 -->
+	<div style="display:flex;">
+	<div class="regist_button">
+		<a th:href="@{/task/regist/input}">タスクを登録</a>
+	</div>
+	
+	<div class="menu_button">
+		<a th:href="@{/task/menu}">メニューへ</a>
+	</div>
+	
+	<div class="archive_button">
+		<a th:href="@{/task/archive}">アーカイブを出力</a>
+	</div>
+	
+	<div class="selectall_button">
+		<a th:href="@{/task/tasklist}">全選択</a>
+	</div>
+    </div>
+
+	<!-- ***検索結果が０件の場合*** -->
+	<!-- ***falseを書き換え、表示内容を記述すること*** -->
+	<th:block th:if="${#lists.isEmpty(task)}">
+		<div class="message">
+			<!--以下に該当する社員が存在しないときのメッセージを記述する -->
+			<p class="back_to_top_message">タスクが存在しません</p>
+			<!--以下に一覧表示に戻るリンクを記述する -->
+			<p class="back_to_top_link">
+			<a th:href="@{/back_to_top_link}">一覧表示に戻る</a>
+			</p>
+		</div>
+	</th:block>
+	<!-- ***検索結果が０件の場合 ここまで*** -->
+ 
+	<!-- ***検索結果がある場合*** -->
+	<!-- Employeeテーブルからclass名を指定すること。 -->
+	<!-- ***trueを書き換えること*** -->
+	<table class="task" th:if="${not #lists.isEmpty(task)}">
+		<tr>
+			<th class="taskName">タスク名</th>
+			<th class="createDate">作成日時</th>
+			<th class="deadlineDate">完了期限日時</th>
+			<th class="importanceId">重要度</th>
+			<th class="completeFlag">完/未</th>
+		</tr>
+ 
+		<!-- ***####を書き換え、社員情報を全件出力する*** -->
+		<tr th:each="task: ${Task}">
+	     <td th:text="${task.taskName}"></td>
+	     <td th:text="${#dates.format(task.createDate,'yyyy/MM/dd H:mm')}"></td>
+	     <td th:text="${#dates.format(task.deadlineDate,'yyyy/MM/dd H:mm')}"></td>
+	     <td th:if="${task.importanceId==1}">最重要</td>
+	     <td th:if="${task.importanceId==2}">重要</td>
+	     <td th:if="${task.importanceId==3}">通常</td>
+	     <td th:if="${task.completeFlag==0}">未完了</td>
+	     <td th:if="${task.completeFlag==1}">完了</td>
+		</tr>
+		<!-- ***####を書き換え、社員情報を全件出力する ここまで*** -->
+	</table>
+	<!-- ***検索結果がある場合 ここまで*** -->
+ 
+</body>
+ 
+</html>
