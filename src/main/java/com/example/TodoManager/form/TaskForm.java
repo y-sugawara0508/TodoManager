@@ -1,9 +1,11 @@
 package com.example.TodoManager.form;
 
 
+import java.time.LocalTime;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 
@@ -11,8 +13,6 @@ import jakarta.validation.constraints.Size;
 /**
  * TaskクラスのForm
  */
-
-
 public class TaskForm {
 	
 	/**
@@ -35,45 +35,51 @@ public class TaskForm {
 	private String taskContents;
 	
 	/**
-	 * 完了期限日時
+	 * 完了期限日
 	 */
-	@NotBlank
+	@NotNull
 	private Date deadlineDate;
+	
+	/**
+	 * 完了期限時間
+	 */
+	@NotNull
+	private LocalTime deadlineTime;
 	
 	/**
 	 * 作成日
 	 */
-	@NotBlank
+	@NotNull
 	private Date createDate;
 	
 	/**
 	 * 削除フラグ
 	 */
-	@NotBlank
+	@NotNull
 	private Boolean deleteFlag;
 	
 	/**
 	 * 完了フラグ
 	 */
-	@NotBlank
+	@NotNull
 	private Boolean completeFlag;
 	
 	/**
 	 * アーカイブフラグ
 	 */
-	@NotBlank
+	@NotNull
 	private Boolean archiveFlag;
 	
 	/**
 	 * 重要度
 	 */
-	@NotBlank
+	@NotNull
 	private Integer importanceId;
 	
 	/**
 	 * ユーザID
 	 */
-	@NotBlank
+	@NotNull
 	private Integer personalId;
 	
 	
@@ -141,6 +147,22 @@ public class TaskForm {
 		this.deadlineDate = deadlineDate;
 	}
 	
+	/**
+	 * 完了期限時間の取得
+	 * @return
+	 */
+	public LocalTime getDeadlineTime() {
+		return deadlineTime;
+	}
+
+	/**
+	 * 完了期限時間のセット
+	 * @param deadlineTime
+	 */
+	public void setDeadlineTime(LocalTime deadlineTime) {
+		this.deadlineTime = deadlineTime;
+	}
+
 	/**
 	 * 作成日の取得
 	 * @return
