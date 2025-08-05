@@ -25,7 +25,7 @@ public class TasklistController {
 		                  @RequestParam(value = "sortStr", required = false)String sortStr, Model model) {
   
 	 if (sortStr == null || !sortStr.contains("_")) {
-	        sortStr = "taskId_DESC";
+	        sortStr = "taskId_ASC";
 	    }
 	 
   // 文頭から"_"より前の文字列をidとして取得
