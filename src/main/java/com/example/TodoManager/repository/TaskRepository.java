@@ -8,9 +8,7 @@ import com.example.TodoManager.entity.Task;
 
 public interface TaskRepository extends JpaRepository<Task,Integer> {
 	
-	List<Task> findAllByOrderByCreateDateDesc();
-
-	List<Task> findByTaskNameContaining();
+	List<Task> findAllByOrderByCreateDateAsc();
 	
 	List<Task> findByTaskNameContaining(String TaskName);
 
