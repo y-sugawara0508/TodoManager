@@ -2,65 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
 	<meta charset="UTF-8">
 	<title>新規ユーザ登録画面</title>
 </head>
 
 <body>
-	<h1>新規ユーザ登録画面</h1>
-
-	<!-- 入力フォームにて利用:パスワード入力の目のアイコンの表示に利用-->
+	<!-- パスワードの目アイコン用CSS -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
+	<!-- スクリプト文 -->
 	<script>
 		function pushHideButton() {
-			// 入力情報を取得
 			var passText = document.getElementById("passText");
-			// button情報を取得
 			var eyeButton = document.getElementById("eyeButton");
-			// 表示種別が現在"text" であるばらば
 			if (passText.type === "text") {
-
-				// 表示切替を行う
 				passText.type = "password";
 				eyeButton.className = "fa fa-eye";
 			} else {
-				// 表示切替を行う
 				passText.type = "text";
 				eyeButton.className = "fa fa-eye-slash";
 			}
 		}
 	</script>
 
+	<h1>新規ユーザ登録画面</h1>
+
 	<div th:object="${personalForm}">
 		<form method="post" th:action="@{/personalregistcheck}">
-			<div>名前:<input type="text" th:field="*{personalName}" /></div>
 
-			<div>生年月日:<input type="text" th:field="*{birthday}" /></div>
+			<!-- 名前入力欄 -->
+			<div>名前<input type="text" th:field="*{personalName}" /></div>
 
-			<div>メールアドレス:<input type="text" th:field="*{address}" /></div>
+			<!-- 生年月日入力欄 -->
+			<div>生年月日
+				<input type="date" class="input-box" th:field="*{birthday}" />
+			</div>
 
-			
+			<!-- メールアドレス -->
+			<div>メールアドレス<input type="text" th:field="*{address}" /></div>
 
+			<!-- パスワード入力欄 -->
+			<div class="input">
+				パスワード
+				<input type="password" id="passText" th:field="*{personalPass}" />
+				<span id="eyeButton" class="fa fa-eye" onclick="pushHideButton()"></span>
+			</div>
 
-			<div class="input">パスワード:<input type="password" id="passText"
-						th:field="*{personalPass}" /><span id="eyeButton" class="fa fa-eye"
-						onclick="pushHideButton()"></span></div>
-			
-
-
+			<!-- 登録ボタン -->
 			<input type="submit" value="確認" />
 		</form>
 
+		<!-- 戻るボタン -->
 		<form th:action="@{/}">
 			<input type="submit" value="戻る" />
-
+		</form>
 	</div>
-	</form>
-	</div>
-
-
 
 </body>
 

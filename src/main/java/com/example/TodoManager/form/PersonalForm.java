@@ -2,6 +2,8 @@ package com.example.TodoManager.form;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class PersonalForm {
 
 	/** ID*/
@@ -17,6 +19,7 @@ public class PersonalForm {
 	private String personalPass;
 	
 	/** 生年月日*/
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 
 	public Integer getPersonalId() {

@@ -18,9 +18,6 @@ import jakarta.validation.Valid;
 @Controller
 public class AuthController {
 
-	/**
-	 * ユーザー情報検索用オブジェクト
-	 */
 	@Autowired
 	PersonalRepository personalRepository;
 

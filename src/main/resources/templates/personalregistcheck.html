@@ -9,55 +9,54 @@
 <body>
 	<h1>新規ユーザ登録確認画面</h1>
 
-	<!-- 入力フォームにて利用:パスワード入力の目のアイコンの表示に利用-->
+	<!--	入力フォームにて利用:パスワード入力の目のアイコンの表示に利用-->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
+	<!-- スクリプト文 -->
 	<script>
 		function pushHideButton() {
-			// 入力情報を取得
 			var passText = document.getElementById("passText");
-			// button情報を取得
 			var eyeButton = document.getElementById("eyeButton");
-			// 表示種別が現在"text" であるばらば
 			if (passText.type === "text") {
-
-				// 表示切替を行う
 				passText.type = "password";
 				eyeButton.className = "fa fa-eye";
 			} else {
-				// 表示切替を行う
 				passText.type = "text";
 				eyeButton.className = "fa fa-eye-slash";
 			}
 		}
 	</script>
 
+	<div th:object="${personalForm}">
 
+		<!-- 名前 -->
+		<div>
+			<label>名前</label>
+			<input type="text" class="input-box" th:field="*{personalName}" readonly />
+		</div>
 
-	<!-- 名前の表示 -->
-	<div>名前：<input type="text" class="input-box" th:field="${personalForm.personalName}" readonly /></input>
-	</div>
+		<!-- 生年月日 -->
+		<div>
+			<label>生年月日</label>
+			<input type="text" class="input-box" th:value="${#dates.format(personalForm.birthday, 'yyyy/MM/dd')}"
+				readonly />
 
+		</div>
 
-	<!-- 生年月日の表示 -->
-	<div>生年月日：<input type="text" class="input-box" th:field="${personalForm.birthday}" readonly /></input>
-	</div>
+		<!-- メールアドレス -->
+		<div>
+			<label>メールアドレス</label>
+			<input type="text" class="input-box" th:field="*{address}" readonly />
+		</div>
 
-
-	<!-- メールアドレスの表示 -->
-	<div>メールアドレス：<input type="text" class="input-box" th:field="${personalForm.address}" readonly /></input></div>
-	</div>
-
-	<div class="input">パスワード:
-			<input type="password" id="passText" th:value="${personalForm.personalPass}" readonly />
+		<!-- パスワード -->
+		<div class="input">
+			<label>パスワード</label>
+			<input type="password" id="passText" th:value="*{personalPass}" readonly />
 			<span id="eyeButton" class="fa fa-eye" onclick="pushHideButton()"></span>
 		</div>
-	</div>
 
-
-	<!-- 登録処理用フォーム（hiddenでデータを送信） -->
-
-	<div th:object="${personalForm}">
+		<!-- 登録ボタン -->
 		<form method="post" th:action="@{/personalregistcomplete}">
 			<input type="hidden" th:field="*{personalName}" />
 			<input type="hidden" th:field="*{birthday}" />
@@ -65,15 +64,16 @@
 			<input type="hidden" th:field="*{personalPass}" />
 			<input type="submit" value="登録" />
 		</form>
-		
-	</div>
 
-
-	<!-- 入力画面に戻るフォーム（hiddenでデータを保持） -->
-	<div method="post" th:object="${personalForm}">
-		<form th:action="@{/personalregistinput}">
+		<!-- 戻るボタン -->
+		<form method="post" th:action="@{/personalregistinput}">
+			<input type="hidden" th:field="*{personalName}" />
+			<input type="hidden" th:field="*{birthday}" />
+			<input type="hidden" th:field="*{address}" />
+			<input type="hidden" th:field="*{personalPass}" />
 			<input type="submit" value="戻る" />
 		</form>
+	</div>
 	</div>
 
 </body>
