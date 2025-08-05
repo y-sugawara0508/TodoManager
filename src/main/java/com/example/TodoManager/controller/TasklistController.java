@@ -8,19 +8,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-<<<<<<< HEAD
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-=======
-import org.springframework.web.bind.annotation.GetMapping;
->>>>>>> 70691d798714ef324333010a7bad1bb17c93261c
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.TodoManager.entity.Task;
 import com.example.TodoManager.repository.TaskRepository;
 @Controller
 public class TasklistController {
-<<<<<<< HEAD
+
 
 	@Autowired
 	TaskRepository repository;
@@ -48,7 +45,7 @@ public class TasklistController {
 		
 		}	
 	
-=======
+
  @Autowired
  TaskRepository taskRepository; 
  
@@ -82,7 +79,6 @@ public class TasklistController {
   
   //http://localhost:4444/TodoManager/list?pageNum=0&pageSize=10&sortStr=taskId_DESC
  }
->>>>>>> 70691d798714ef324333010a7bad1bb17c93261c
 }
  
  
