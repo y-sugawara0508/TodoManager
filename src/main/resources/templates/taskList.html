@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>タスク管理アプリ</title>
+<style>
+
+button{
+    border-radius: 10px;
+    display: inline-block;
+    width: auto;
+    padding: 5px;
+    box-sizing: border-box;
+    background: skyblue;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    margin: 10px 0;
+    border: none;
+}
+
+
+table{
+                
+		border-collapse: collapse;
+		width:auto;
+		margin-top: 20px;
+                color: white;
+                background-color: skyblue;
+}
+
+table th,td {
+border:solid 1px white;
+
+	}
+	
+</style>
+</head>
+<body>
+   <button type ="button">タスクを登録</button>
+   <button type ="button">メニューへ</button>
+   <button type ="button">アーカイブを出力</button>
+   <button type ="button">全選択</button>
+
+
+ <table>
+  <tr>
+   <th>No</th>
+   <th>タスク名</th>
+   <th>作成日時</th>
+   <th>完了期限日時</th>
+   <th>完/未</th>
+   <th>　　</th>
+  </tr>
+  <tr th:each="task:${tasks}">
+   <td th:text="${task.taskId}"></td>
+   <td th:text="${task.taskName}"></td>
+   <td th:text="${#dates.format(task.createDate, 'yyyy/MM/dd H:mm')}"></td>
+   <td th:text="${#dates.format(task.deadlineDate, 'yyyy/MM/dd H:mm')}"></td>
+
+  </tr>
+ </table>
+</body>
+
+</html>
