@@ -6,7 +6,7 @@
 </head>
 <body>
 	
-	<!-- とあるタスクの詳細説明 -->
+	<!-- 選択されたタスクの詳細説明 -->
 	<!--下２行のdivタグの中身だいぶ怪しい-->
 	<div class="update" method="post" th:action="@{/taskUpdate}">
 		<div class="form">
@@ -35,6 +35,7 @@
 				<span th:case="3">最重要</span>
 			</div>
 		</div>
+		<!--編集ボタン-->
 		<div class="form">
 				<div class="label"></div>
 				<div class="input">
