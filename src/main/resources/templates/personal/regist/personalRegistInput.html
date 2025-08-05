@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>新規ユーザ登録画面</title>
+</head>
+
+<body>
+	<!-- パスワードの目アイコン用CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+	<!-- スクリプト文 -->
+	<script>
+		function pushHideButton() {
+			var passText = document.getElementById("passText");
+			var eyeButton = document.getElementById("eyeButton");
+			if (passText.type === "text") {
+				passText.type = "password";
+				eyeButton.className = "fa fa-eye";
+			} else {
+				passText.type = "text";
+				eyeButton.className = "fa fa-eye-slash";
+			}
+		}
+	</script>
+
+	<h1>新規ユーザ登録画面</h1>
+
+	<div th:object="${personalForm}">
+		<form method="post" th:action="@{/personal/regist/personalRegistCheck}">
+
+			<!-- 名前入力欄 -->
+			<div>名前<input type="text" th:field="*{personalName}" /></div>
+
+			<!-- 生年月日入力欄 -->
+			<div>生年月日
+				<input type="date" class="input-box" th:field="*{birthday}" />
+			</div>
+
+			<!-- メールアドレス -->
+			<div>メールアドレス<input type="text" th:field="*{address}" /></div>
+
+			<!-- パスワード入力欄 -->
+			<div class="input">
+				パスワード
+				<input type="password" id="passText" th:field="*{personalPass}" />
+				<span id="eyeButton" class="fa fa-eye" onclick="pushHideButton()"></span>
+			</div>
+
+			<!-- 登録ボタン -->
+			<input type="submit" value="確認" />
+		</form>
+
+		<!-- 戻るボタン -->
+		<form th:action="@{/}">
+			<input type="submit" value="戻る" />
+		</form>
+	</div>
+
+</body>
+
+</html>
