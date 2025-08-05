@@ -4,23 +4,71 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ログイン画面</title>
+
+	<!--FIX: styleが完成次第、cssファイルに分ける必要があるかもー！！-->
+	<style>
+		body {
+			height: 100vh;
+			/* 上部からの距離 */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.loginform-container {
+			background-color: #83CBEB;
+			border-radius: 20px;
+			padding: 60px;
+			text-align: center;
+		}
+
+		label {
+			display: inline-block;
+			width: 150px;
+			text-align: left;
+		}
+
+		.form-area {
+			padding: 15px;
+		}
+
+		.button {
+			border: none;
+			border-radius: 15px;
+			background-color: #FFC000;
+			padding: 5px 15px;
+		}
+
+		.text-box {
+			border: none;
+			border-radius: 15px;
+			padding: 5px 15px;
+		}
+	</style>
 </head>
 
 <body>
-	<h1>ログイン画面</h1>
 
-	<div th:object="${loginForm}">
-		<form method="post" th:action="@{/login}">
-			<div>メールアドレス</div>
-			<input type="text" th:field="*{address}" /><br>
-			<div>パスワード</div>
-<input type="password" th:field="*{personalPass}" /><br>
-			<span th:errors="*{personalPass}"></span><br>
-			<input type="submit" value="ログイン" />
-			
-		</form>
-	</div>
-	
+	<!-- ログイン入力フォーム -->
+	<form method="post" th:action="@{/login}" th:object="${loginForm}" class="loginform-container">
+
+		<div>以下の項目を入力してください</div>
+		<div class="form-area">
+			<label for="address">メールアドレス</label>
+			<input id="address" type="text" th:field="*{address}" class="text-box">
+		</div>
+		<div class="form-area">
+			<label for="personalPass">パスワード</label>
+			<input id="personalPass" type="password" th:field="*{personalPass}" class="text-box" /><br>
+			<div th:each="error:${#fields.detailedErrors()}">
+				<span th:text="${error.message}"></span>
+			</div>
+			<div>
+				<input type="submit" value="ログイン" class="button" />
+			</div>
+
+	</form>
+
 	<a th:href="@{/personal/regist/personalRegistInput}">初めての方はこちら</a>
 </body>
 
