@@ -8,8 +8,9 @@ import com.example.TodoManager.entity.Task;
 
 public interface TaskRepository extends JpaRepository<Task,Integer> {
 	
-	List<Task> findAllByOrderByCreateDateDesc();
-	
+	List<Task> findAllByOrderByCreateDateAsc();
+	List<Task> findByTaskNameContaining(String TaskName);
+
 	/*	
 		@Query ("SELECT t FROM Task t ORDER BY t.deadlineDate = :deadlineDate DESC")
 		List<Task>findbyDeadlineDateQueryDesc(@Param("deadlineDate")Date deadlineDate);

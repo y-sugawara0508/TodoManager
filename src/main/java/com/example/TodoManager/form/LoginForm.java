@@ -1,41 +1,30 @@
 package com.example.TodoManager.form;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.example.TodoManager.util.Login;
 
+@Login
 public class LoginForm {
-	
-		/** メールアドレス*/
-		@NotBlank
-		@NotNull
-		@Size(max=200)
-		private String address;
-	 
-		/**パスワード*/
-		@NotBlank
-		@NotNull
-		@Size(max = 16)
-		private String personalPass;
 
-		public String getAddress() {
-			return address;
-		}
+	/** メールアドレス*/
+	private String address;
 
-		public void setAddress(String address) {
-			this.address = address;
-		}
+	/**パスワード*/
+	private String personalPass;
 
-		public String getPersonalPass() {
-			return personalPass;
-		}
+	public String getAddress() {
+		return address;
+	}
 
-		public void setPersonalPass(String personalPass) {
-			this.personalPass = personalPass;
-		}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-		
-		
-		
+	public String getPersonalPass() {
+		return personalPass;
+	}
+
+	public void setPersonalPass(String personalPass) {
+		this.personalPass = personalPass;
+	}
 
 }
