@@ -1,6 +1,7 @@
 package com.example.TodoManager.bean;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TaskBean {
 
@@ -10,9 +11,9 @@ public class TaskBean {
 	
 	private String taskContents;
 	
-	private Date deadlineDate;
+	private LocalDateTime deadlineDate;
 	
-	private Date createDate;
+	private LocalDate createDate;
 	
 	private Boolean deleteFlag;
 	
@@ -23,6 +24,8 @@ public class TaskBean {
 	private Integer importanceId;
 	
 	private Integer personalId;
+	
+	private Integer displayNo;
 
 	public Integer getTaskId() {
 		return taskId;
@@ -48,20 +51,20 @@ public class TaskBean {
 		this.taskContents = taskContents;
 	}
 
-	public Date getDeadlineDate() {
+	public LocalDateTime getDeadlineDate() {
 		return deadlineDate;
 	}
 
-	public void setDeadlineDate(Date deadlineDate) {
-		this.deadlineDate = deadlineDate;
+	public void setDeadlineDate(LocalDateTime localDateTime) {
+		this.deadlineDate = localDateTime;
 	}
 
-	public Date getCreateDate() {
+	public LocalDate getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreateDate(LocalDate localDate) {
+		this.createDate = localDate;
 	}
 
 	public Boolean getDeleteFlag() {
@@ -102,6 +105,14 @@ public class TaskBean {
 
 	public void setPersonalId(Integer personalId) {
 		this.personalId = personalId;
+	}
+
+	public Integer getDisplayNo() {
+		return displayNo;
+	}
+
+	public void setDisplayNo(Integer displayNo) {
+		this.displayNo = displayNo;
 	}
 		
 }
