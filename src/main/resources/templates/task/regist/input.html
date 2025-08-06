@@ -36,7 +36,7 @@
 				<div class="label">完了期限</div>
 				<div class="label">日付</div>
 				<div class="input">
-					<input type="date" th:field="*{Date}" />
+					<input type="date" th:field="*{date}" />
 					<span th:errors="*{Date}"></span>
 				</div>
 				<div class="label">時刻</div>
@@ -64,11 +64,13 @@
 					<input type="submit" value="確認" />
 				</div>
 			</div>
+		</form>
 
-			<!-- メニュー画面に戻るボタン -->
+		<!-- メニュー画面に戻るボタン -->
+		<form method="get" th:action="@{/menu}">
 			<div class="form">
 				<div class="input">
-					<button type="button" onclick="location.href='/menu'">戻る</button>
+					<input type="submit" value="戻る">
 				</div>
 			</div>
 		</form>
