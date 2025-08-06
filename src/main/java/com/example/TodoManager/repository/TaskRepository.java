@@ -1,10 +1,16 @@
 package com.example.TodoManager.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.TodoManager.entity.Task;
 
 public interface TaskRepository extends JpaRepository<Task,Integer> {
+	
+	List<Task> findAllByOrderByCreateDateAsc();
+	List<Task> findByTaskNameContaining(String TaskName);
+
 	/*	
 		@Query ("SELECT t FROM Task t ORDER BY t.deadlineDate = :deadlineDate DESC")
 		List<Task>findbyDeadlineDateQueryDesc(@Param("deadlineDate")Date deadlineDate);
