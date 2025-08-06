@@ -6,5 +6,7 @@ import com.example.TodoManager.entity.Personal;
 
 public interface PersonalRepository extends JpaRepository<Personal,Integer> {
 	Personal findByAddressAndPersonalPass(String address, String personalPass);
+	
+	boolean existsByAddress(String address);
 
 }

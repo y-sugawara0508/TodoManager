@@ -1,68 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<title>新規タスク登録確認</title>
 	<meta charset="UTF-8">
 </head>
+
 <body class="admin regist_task_check_admin">
-	<h3>新規タスク登録確認画面</h3>
-	
+	<h3>新規タスク登録確認</h3>
 	<div class="update">
+		<!--タスク名の内容表示-->
 		<div class="form">
 			<div class="label">タスク名</div>
-			<div class="input" th:text="${spring.taskName}"></div>
+			<div class="input" th:text="${taskForm.taskName}"></div>
 		</div>
-		
+
+		<!--詳細説明の内容表示-->
 		<div class="form">
 			<div class="label">詳細説明</div>
-			<div class="input" th:text="${spring.taskContents}"></div>
+			<div class="input" th:text="${taskForm.taskContents}"></div>
 		</div>
-		
+
+		<!--完了期限の内容表示-->
 		<div class="form">
 			<div class="label">完了期限</div>
 			<div class="label">日時</div>
-			<div class="input" th:text="${spring.deadlineDate}"></div>
+			<div class="input" th:text="${taskForm.Date}"></div>
 			<div class="label">時刻</div>
-			<div class="input" th:text="${spring.deadlineTime}"></div>
+			<div class="input" th:text="${taskForm.deadlineTime}"></div>
 		</div>
-		
+
+		<!--重要度の内容表示-->
 		<div class="form">
 			<div class="label">重要度</div>
-			<div class="input" th:text="${spring.importanceId}">
+			<div class="input" th:switch="${taskForm.importanceId}">
 				<span th:case="1">通常</span>
 				<span th:case="2">重要</span>
 				<span th:case="3">最重要</span>
 			</div>
 		</div>
-		
+
+		<!--Oracleにデータを登録し、完了画面に遷移する-->
 		<form method="post" th:action="@{/task/regist/complete}" th:object="${taskForm}">
-			<dic class="form">
-				<div class="label"></div>
-				<div class="input">
-					<input type="hidden" th:field="*{taskName}" />
-					<input type="hidden" th:field="*{taskContents}" />
-					<input type="hidden" th:field="*{deadlineDate}" />
-					<input type="hidden" th:field="*{importanceId}" />
-					<input type="hidden" th:field="*{deadlineTime}" />
-					<input type="submit" value="登録" />
-				</div>
-			</dic>
-		</form>
-		
-		<form  method="post" th:action="@{/task/regist/input}" th:object="${taskForm}">
 			<div class="form">
-				<div class="label"></div>
 				<div class="input">
 					<input type="hidden" th:field="*{taskName}" />
 					<input type="hidden" th:field="*{taskContents}" />
 					<input type="hidden" th:field="*{deadlineDate}" />
 					<input type="hidden" th:field="*{importanceId}" />
 					<input type="hidden" th:field="*{deadlineTime}" />
-					<input type="submit" value="戻る" />
+					<button type="submit">登録</button>
+				</div>
+			</div>
+		</form>
+
+		<!--データを保持した状態で入力画面に戻る-->
+		<form method="post" th:action="@{/task/regist/input}" th:object="${taskForm}">
+			<div class="form">
+				<div class="input">
+					<input type="hidden" th:field="*{taskName}" />
+					<input type="hidden" th:field="*{taskContents}" />
+					<input type="hidden" th:field="*{deadlineDate}" />
+					<input type="hidden" th:field="*{importanceId}" />
+					<input type="hidden" th:field="*{deadlineTime}" />
+					<button type="submit">戻る</button>
 				</div>
 			</div>
 		</form>
 	</div>
 
 </body>
+
 </html>
