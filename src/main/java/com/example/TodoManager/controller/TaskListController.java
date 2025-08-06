@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.TodoManager.entity.Task;
 import com.example.TodoManager.repository.TaskRepository;
 @Controller
-public class TasklistController {
+public class TaskListController {
 
  @Autowired
  TaskRepository taskRepository; 
