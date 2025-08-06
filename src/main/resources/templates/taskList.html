@@ -1,172 +1,194 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<title>タスク管理アプリ</title>
-<style>
+	<meta charset="UTF-8">
+	<title>タスク管理アプリ</title>
+	<style>
+		.container {
+			display: flex;
+			/* Flexbox を利用して横並びに配置 */
+			justify-content: space-between;
+			/* 左右に要素を配置 */
+			align-items: center;
+			/* 垂直方向の中央揃え */
+			margin: 20px 0;
+			/* 上下に余白を追加 */
+		}
 
-.container {
-    display: flex; /* Flexbox を利用して横並びに配置 */
-    justify-content: space-between; /* 左右に要素を配置 */
-    align-items: center; /* 垂直方向の中央揃え */
-    margin: 20px 0; /* 上下に余白を追加 */
-}
+		.button {
+			border-radius: 10px;
+			display: inline-block;
+			width: auto;
+			padding: 0 20px;
+			/* 左右の余白を調整 */
+			box-sizing: border-box;
+			background: skyblue;
+			color: white;
+			text-decoration: none;
+			text-align: center;
+			margin: 0;
+			border: none;
+			height: 30px;
+			/* 高さを統一 */
+			line-height: 30px;
+			/* テキストを中央揃え */
+		}
 
-.button {
-    border-radius: 10px;
-    display: inline-block;
-    width: auto;
-    padding: 0 20px; /* 左右の余白を調整 */
-    box-sizing: border-box;
-    background: skyblue;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    margin: 0;
-    border: none;
-    height: 30px; /* 高さを統一 */
-    line-height: 30px; /* テキストを中央揃え */
-}
+		.sortSelect {
+			display: inline-block;
+			width: 200px;
+			/* 幅を広げて選択肢を収める */
+			padding: 0 10px;
+			/* 左右の余白を調整 */
+			box-sizing: border-box;
+			background: skyblue;
+			/* ボタンと同じ色 */
+			color: white;
+			/* ボタンと同じテキスト色 */
+			font-weight: bold;
+			font-size: 14px;
+			text-align: center;
+			border: none;
+			border-radius: 10px;
+			outline: none;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			height: 30px;
+			/* 高さを統一 */
+			line-height: 30px;
+			/* テキストを中央揃え */
+			margin: 0;
+			/* プルダウンとボタンの間隔を無くす */
+		}
 
-.sortSelect {
-    display: inline-block;
-    width: 200px; /* 幅を広げて選択肢を収める */
-    padding: 0 10px; /* 左右の余白を調整 */
-    box-sizing: border-box;
-    background: skyblue; /* ボタンと同じ色 */
-    color: white; /* ボタンと同じテキスト色 */
-    font-weight: bold;
-    font-size: 14px;
-    text-align: center;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    height: 30px; /* 高さを統一 */
-    line-height: 30px; /* テキストを中央揃え */
-    margin: 0; /* プルダウンとボタンの間隔を無くす */
-}
+		.sortSelect select {
+			background: transparent;
+			color: white;
+			border: none;
+			outline: none;
+			font-size: inherit;
+			font-weight: inherit;
+			text-align: center;
+			/* 文字を中央揃えにする */
+			text-align-last: center;
+			/* プルダウンリストの選択肢を中央揃えにする */
+			padding: 0;
+			width: 100%;
+			/* 選択肢をリスト内で中央揃えにする */
+			height: 30px;
+			/* 高さを統一 */
+			line-height: 30px;
+			/* テキストを中央揃え */
+		}
 
-.sortSelect select {
-    background: transparent;
-    color: white;
-    border: none;
-    outline: none;
-    font-size: inherit;
-    font-weight: inherit;
-    text-align: center; /* 文字を中央揃えにする */
-    text-align-last: center; /* プルダウンリストの選択肢を中央揃えにする */
-    padding: 0;
-    width: 100%; /* 選択肢をリスト内で中央揃えにする */
-    height: 30px; /* 高さを統一 */
-    line-height: 30px; /* テキストを中央揃え */
-}
+		.sortSelect:hover {
+			background: deepskyblue;
+			/* ホバー時に少し濃い色に変更 */
+		}
 
-.sortSelect:hover {
-    background: deepskyblue; /* ホバー時に少し濃い色に変更 */
-}
+		.sortSelect option {
+			background: white;
+			color: black;
+			text-align: center;
+			/* 選択肢の文字も中央揃えにする */
+			padding: 5px;
+			/* 選択肢に余白を追加 */
+		}
 
-.sortSelect option {
-    background: white;
-    color: black;
-    text-align: center; /* 選択肢の文字も中央揃えにする */
-    padding: 5px; /* 選択肢に余白を追加 */
-}
+		.table-container {
+			margin-top: 20px;
+		}
 
-.table-container {
-    margin-top: 20px;
-}
+		table {
 
-table{
-                
-		border-collapse: collapse;
-		width:75%;
-		font-size: 18px;
-		text-align: center;
-		margin-top: 10px;
-        color: black;
-        background-color: rgb(226, 226, 226);
-}
+			border-collapse: collapse;
+			width: 75%;
+			font-size: 18px;
+			text-align: center;
+			margin-top: 10px;
+			color: black;
+			background-color: rgb(226, 226, 226);
+		}
 
-table th,td {
-border:solid 2px white;
+		table th,
+		td {
+			border: solid 2px white;
 
-	}
-	
-	table tbody tr:nth-child(1){
-	color: white;
-	background:skyblue;
-	
-}
+		}
 
-.flex-row{
-	display: flex; /* 横並びにする */
-    align-items: center; /* 垂直方向の中央揃え */
-     gap: 0; /* 要素間の余白を無くす */
-}
-</style>
+		table tbody tr:nth-child(1) {
+			color: white;
+			background: skyblue;
+
+		}
+
+		.flex-row {
+			display: flex;
+			/* 横並びにする */
+			align-items: center;
+			/* 垂直方向の中央揃え */
+			gap: 0;
+			/* 要素間の余白を無くす */
+		}
+	</style>
 </head>
+
 <body>
- <script>
- // プルダウンリストが選択された際、onChangeにより呼び出される
-  function sortRequest() {
 
-   // 選択された値を取得
-   const sortId = document.getElementById("sortSelect").value;
-  
-   // Getリクエストを送信(画面遷移)
-    window.location.href = `http://localhost:4444/TodoManager/list?pageNum=0&pageSize=10&sortStr=${sortId}`;
-  }
-</script>
-<div class="container">
- <form th:action="@{/taskList}" method="get">
-   <div class="sortSelect">
-    <select id="sortSelect" name="sortStr" onChange="sortRequest()">
-	 <option th:value="taskId_ASC" th:selected="${sortStr == 'taskId_ASC'}">並び替え</option>
-     <option th:value="deadlineDate_ASC" th:selected="${sortStr == 'deadlineDate_ASC'}">完了期限日時（昇順）</option>
-     <option th:value="deadlineDate_DESC" th:selected="${sortStr == 'deadlineDate_DESC'}">完了期限日時（降順）</option>
-     <option th:value="importanceId_ASC" th:selected="${sortStr == 'importanceId_ASC'}">重要度（昇順）</option>
-     <option th:value="importanceId_DESC" th:selected="${sortStr == 'importanceId_DESC'}">重要度（降順）</option>
-     <option th:value="deleteFlag_ASC" th:selected="${sortStr == 'deleteFlag_ASC'}">完了/未完了（昇順）</option>
-     <option th:value="deleteFlag_DESC" th:selected="${sortStr == 'deleteFlag_DESC'}">完了/未完了（降順）</option>
-    </select>
-   </div>
-  </form>
- 
-   <a th:href="@{/task/regist/input}" class="button" >タスクを登録</a>
-   <a th:href="@{/menu}" class="button">メニューへ</a>
-   <a class="button">アーカイブを出力</a>
-   <a class ="button">全選択</a>
-</div>
+	<div class="container">
+		<form th:action="@{/taskList}" method="get">
+			<div class="sortSelect">
+				<select id="sortSelect" name="sortStr" onChange="sortRequest()">
+					<option th:value="taskId_ASC" th:selected="${sortStr == 'taskId_ASC'}">並び替え</option>
+					<option th:value="deadlineDate_ASC" th:selected="${sortStr == 'deadlineDate_ASC'}">完了期限日時（昇順）
+					</option>
+					<option th:value="deadlineDate_DESC" th:selected="${sortStr == 'deadlineDate_DESC'}">完了期限日時（降順）
+					</option>
+					<option th:value="importanceId_ASC" th:selected="${sortStr == 'importanceId_ASC'}">重要度（昇順）</option>
+					<option th:value="importanceId_DESC" th:selected="${sortStr == 'importanceId_DESC'}">重要度（降順）
+					</option>
+					<option th:value="deleteFlag_ASC" th:selected="${sortStr == 'deleteFlag_ASC'}">完了/未完了（昇順）</option>
+					<option th:value="deleteFlag_DESC" th:selected="${sortStr == 'deleteFlag_DESC'}">完了/未完了（降順）</option>
+				</select>
+			</div>
+		</form>
 
- <table>
-  <tr>
-   <th>No</th>
-   <th>タスク名</th>
-   <th>作成日時</th>
-   <th>完了期限日時</th>
-   <th>重要度</th>
-   <th>完/未</th>
-   <th>　　</th>
-  </tr>
-  <tr th:each="task, iterStat : ${tasks}">
-   <td th:text="${iterStat.index + 1}"></td>
-   <td th:text="${task.taskName}"></td>
-   <td th:text="${#temporals.format(task.createDate, 'yyyy/MM/dd H:mm')}"></td>
-   <td th:text="${#temporals.format(task.deadlineDate, 'yyyy/MM/dd H:mm')}"></td>
-   <td th:switch="${task.importanceId}">
-   <span th:case="1">最重要</span>
-   <span th:case="2">重要</span>
-   <span th:case="3">通常</span>
- </td>
-   <td th:button="button" >未完了</td>
+		<a th:href="@{/task/regist/input}" class="button">タスクを登録</a>
+		<a th:href="@{/menu}" class="button">メニューへ</a>
+		<a class="button">アーカイブを出力</a>
+		<a class="button">全選択</a>
+	</div>
 
-   
-   
-   
-  </tr>
- </table>
+
+
+	<table>
+		<tr>
+			<th>No</th>
+			<th>タスク名</th>
+			<th>作成日時</th>
+			<th>完了期限日時</th>
+			<th>重要度</th>
+			<th>完/未</th>
+			<th>　　</th>
+		</tr>
+		<tr th:each="task, iterStat : ${tasks}">
+			<td th:text="${iterStat.index + 1}"></td>
+			<td th:text="${task.taskName}"></td>
+			<td th:text="${#temporals.format(task.createDate, 'yyyy/MM/dd H:mm')}"></td>
+			<td th:text="${#temporals.format(task.deadlineDate, 'yyyy/MM/dd H:mm')}"></td>
+			<td th:switch="${task.importanceId}">
+				<span th:case="1">最重要</span>
+				<span th:case="2">重要</span>
+				<span th:case="3">通常</span>
+			</td>
+			<td th:button="button">未完了</td>
+
+
+
+
+		</tr>
+	</table>
 </body>
 
 </html>

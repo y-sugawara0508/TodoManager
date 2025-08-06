@@ -2,29 +2,34 @@ package com.example.TodoManager.bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.validation.constraints.NotNull;
 
 public class TaskBean {
 
 	private Integer taskId;
-	
+
 	private String taskName;
-	
+
 	private String taskContents;
-	
+
 	private LocalDateTime deadlineDate;
-	
+
 	private LocalDate createDate;
-	
+
 	private Boolean deleteFlag;
-	
+
 	private Boolean completeFlag;
-	
+
 	private Boolean archiveFlag;
-	
+
 	private Integer importanceId;
-	
+
 	private Integer personalId;
-	
+
 	private Integer displayNo;
 
 	public Integer getTaskId() {
@@ -33,6 +38,35 @@ public class TaskBean {
 
 	public void setTaskId(Integer taskId) {
 		this.taskId = taskId;
+	}
+
+	/**
+	 * 完了期限日付
+	 */
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate Date;
+
+	/**
+	 * 完了期限時間
+	 */
+	@NotNull
+	private LocalTime deadlineTime;
+
+	public LocalDate getDate() {
+		return Date;
+	}
+
+	public void setDate(LocalDate date) {
+		Date = date;
+	}
+
+	public LocalTime getDeadlineTime() {
+		return deadlineTime;
+	}
+
+	public void setDeadlineTime(LocalTime deadlineTime) {
+		this.deadlineTime = deadlineTime;
 	}
 
 	public String getTaskName() {
@@ -114,5 +148,5 @@ public class TaskBean {
 	public void setDisplayNo(Integer displayNo) {
 		this.displayNo = displayNo;
 	}
-		
+
 }
