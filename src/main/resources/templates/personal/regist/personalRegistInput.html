@@ -40,6 +40,7 @@
 
 			<!-- メールアドレス -->
 			<div>メールアドレス<input type="text" th:field="*{address}" /></div>
+			<div th:if="${#fields.hasErrors('address')}" th:errors="*{address}">エラー</div>
 
 			<!-- パスワード入力欄 -->
 			<div class="input">

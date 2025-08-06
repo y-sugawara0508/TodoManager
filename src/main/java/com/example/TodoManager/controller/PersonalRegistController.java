@@ -73,6 +73,14 @@ public class PersonalRegistController {
 			return "personal/regist/personalRegistInput";
 		}
 
+		// メールアドレスの重複チェック
+		boolean exists = personalRepository.existsByAddress(personalForm.getAddress());
+		if (exists) {
+			// BindingResultにエラーを追加（フィールド名はフォームのemailに合わせる）
+			result.rejectValue("address", "error.personalForm", "このメールアドレスはすでに登録されています。");
+			return "personal/regist/personalRegistInput";
+		}
+
 		session.setAttribute("personalForm", personalForm);
 		model.addAttribute("personalForm", personalForm);
 		return "personal/regist/personalRegistCheck";
