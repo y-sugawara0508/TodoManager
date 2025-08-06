@@ -32,10 +32,12 @@
 
 			<!-- 名前入力欄 -->
 			<div>名前<input type="text" th:field="*{personalName}" /></div>
+			<div th:if="${#fields.hasErrors('personalName')}" th:errors="*{personalName}">エラー</div>
 
 			<!-- 生年月日入力欄 -->
 			<div>生年月日
 				<input type="date" class="input-box" th:field="*{birthday}" />
+				<div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">エラー</div>
 			</div>
 
 			<!-- メールアドレス -->
@@ -47,6 +49,7 @@
 				パスワード
 				<input type="password" id="passText" th:field="*{personalPass}" />
 				<span id="eyeButton" class="fa fa-eye" onclick="pushHideButton()"></span>
+				<div th:if="${#fields.hasErrors('personalPass')}" th:errors="*{personalPass}">エラー</div>
 			</div>
 
 			<!-- 登録ボタン -->
