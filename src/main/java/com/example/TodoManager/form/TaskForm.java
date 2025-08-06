@@ -1,8 +1,12 @@
 package com.example.TodoManager.form;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,10 +39,11 @@ public class TaskForm {
 	private String taskContents;
 	
 	/**
-	 * 完了期限日
+	 * 完了期限日付
 	 */
 	@NotNull
-	private Date deadlineDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate Date;
 	
 	/**
 	 * 完了期限時間
@@ -46,6 +51,11 @@ public class TaskForm {
 	@NotNull
 	private LocalTime deadlineTime;
 	
+	/**
+	 * 完了期限日時
+	 */
+	@NotNull
+	private LocalDateTime deadlineDate;
 	/**
 	 * 作成日
 	 */
@@ -132,10 +142,26 @@ public class TaskForm {
 	}
 	
 	/**
+	 * 完了期限日付の取得
+	 * @return
+	 */
+	public LocalDate getDate() {
+		return Date;
+	}
+
+	/**
+	 * 完了期限日付のセット
+	 * @param date
+	 */
+	public void setDate(LocalDate date) {
+		Date = date;
+	}
+
+	/**
 	 * 完了期限日時の取得
 	 * @return
 	 */
-	public Date getDeadlineDate() {
+	public LocalDateTime getDeadlineDate() {
 		return deadlineDate;
 	}
 	
@@ -143,7 +169,7 @@ public class TaskForm {
 	 * 完了期限日時のセット
 	 * @param deadlineDate
 	 */
-	public void setDeadlineDate(Date deadlineDate) {
+	public void setDeadlineDate(LocalDateTime deadlineDate) {
 		this.deadlineDate = deadlineDate;
 	}
 	

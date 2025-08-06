@@ -1,10 +1,15 @@
 package com.example.TodoManager.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,6 +17,8 @@ import jakarta.persistence.Table;
 public class Task {
 	
 	@Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_task")
+    @SequenceGenerator(name = "seq_task", sequenceName = "seq_task", allocationSize = 1)
 	private Integer taskId;
 	
 	@Column
@@ -21,10 +28,15 @@ public class Task {
 	private String taskContents;
 	
 	@Column
-	private Date deadlineDate;
+	private LocalDateTime deadlineDate;
 	
 	@Column
-	private Date createDate;
+	private LocalDate createDate;
+	
+	@PrePersist
+    public void setCreateDateAutomatically() {
+        this.createDate = LocalDate.now();
+    }
 	
 	@Column
 	private Boolean deleteFlag;
@@ -65,19 +77,19 @@ public class Task {
 		this.taskContents = taskContents;
 	}
 
-	public Date getDeadlineDate() {
+	public LocalDateTime getDeadlineDate() {
 		return deadlineDate;
 	}
 
-	public void setDeadlineDate(Date deadlineDate) {
+	public void setDeadlineDate(LocalDateTime deadlineDate) {
 		this.deadlineDate = deadlineDate;
 	}
 
-	public Date getCreateDate() {
+	public LocalDate getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(LocalDate createDate) {
 		this.createDate = createDate;
 	}
 
