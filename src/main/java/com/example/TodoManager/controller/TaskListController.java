@@ -1,6 +1,10 @@
 
 package com.example.TodoManager.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,9 +13,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.TodoManager.bean.TaskBean;
 import com.example.TodoManager.entity.Task;
+import com.example.TodoManager.form.TaskForm;
 import com.example.TodoManager.repository.TaskRepository;
 @Controller
 public class TaskListController {
@@ -48,6 +55,36 @@ public class TaskListController {
   
   //http://localhost:4444/TodoManager/list?pageNum=0&pageSize=10&sortStr=taskId_DESC
  }
+ 
+ 
+//タスク一覧表示画面から詳細表示画面に遷移するメソッド(完成)
+	@GetMapping("/taskDetail/{taskId}")
+	public String showTaskDetail
+	(@PathVariable Integer taskId,TaskBean bean,TaskForm form,Task task, Model model) {
+		//表示に必要な情報をentityから取得
+		task = taskRepository.getReferenceById(taskId);
+		LocalDate date = (LocalDate)task.getDeadlineDate().toLocalDate();
+		LocalTime deadlineTime = (LocalTime)task.getDeadlineDate().toLocalTime();
+		//取得した情報をbeanに保存
+		BeanUtils.copyProperties(task, bean,"taskId","createDate","deleteFlag","archiveFlag");
+		bean.setDate(date);
+		bean.setDeadlineTime(deadlineTime);
+		model.addAttribute("task",bean);
+		return"/taskDetail";
+	}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 }
  
  
