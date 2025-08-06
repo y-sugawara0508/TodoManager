@@ -135,30 +135,37 @@
 </head>
 
 <body>
+ <script>
+ // プルダウンリストが選択された際、onChangeにより呼び出される
+  function sortRequest() {
 
-	<div class="container">
-		<form th:action="@{/taskList}" method="get">
-			<div class="sortSelect">
-				<select id="sortSelect" name="sortStr" onChange="sortRequest()">
-					<option th:value="taskId_ASC" th:selected="${sortStr == 'taskId_ASC'}">並び替え</option>
-					<option th:value="deadlineDate_ASC" th:selected="${sortStr == 'deadlineDate_ASC'}">完了期限日時（昇順）
-					</option>
-					<option th:value="deadlineDate_DESC" th:selected="${sortStr == 'deadlineDate_DESC'}">完了期限日時（降順）
-					</option>
-					<option th:value="importanceId_ASC" th:selected="${sortStr == 'importanceId_ASC'}">重要度（昇順）</option>
-					<option th:value="importanceId_DESC" th:selected="${sortStr == 'importanceId_DESC'}">重要度（降順）
-					</option>
-					<option th:value="deleteFlag_ASC" th:selected="${sortStr == 'deleteFlag_ASC'}">完了/未完了（昇順）</option>
-					<option th:value="deleteFlag_DESC" th:selected="${sortStr == 'deleteFlag_DESC'}">完了/未完了（降順）</option>
-				</select>
-			</div>
-		</form>
-
-		<a th:href="@{/task/regist/input}" class="button">タスクを登録</a>
-		<a th:href="@{/menu}" class="button">メニューへ</a>
-		<a class="button">アーカイブを出力</a>
-		<a class="button">全選択</a>
-	</div>
+   // 選択された値を取得
+   const sortId = document.getElementById("sortSelect").value;
+  
+   // Getリクエストを送信(画面遷移)
+    window.location.href = `http://localhost:4444/TodoManager/list?pageNum=0&pageSize=10&sortStr=${sortId}`;
+  }
+</script>
+<div class="container">
+ <form th:action="@{/taskList}" method="get">
+   <div class="sortSelect">
+    <select id="sortSelect" name="sortStr" onChange="sortRequest()">
+	 <option th:value="taskId_ASC" th:selected="${sortStr == 'taskId_ASC'}">並び替え</option>
+     <option th:value="deadlineDate_ASC" th:selected="${sortStr == 'deadlineDate_ASC'}">完了期限日時（昇順）</option>
+     <option th:value="deadlineDate_DESC" th:selected="${sortStr == 'deadlineDate_DESC'}">完了期限日時（降順）</option>
+     <option th:value="importanceId_ASC" th:selected="${sortStr == 'importanceId_ASC'}">重要度（昇順）</option>
+     <option th:value="importanceId_DESC" th:selected="${sortStr == 'importanceId_DESC'}">重要度（降順）</option>
+     <option th:value="deleteFlag_ASC" th:selected="${sortStr == 'deleteFlag_ASC'}">完了/未完了（昇順）</option>
+     <option th:value="deleteFlag_DESC" th:selected="${sortStr == 'deleteFlag_DESC'}">完了/未完了（降順）</option>
+    </select>
+   </div>
+  </form>
+ 
+   <a th:href="@{/task/regist/input}" class="button" >タスクを登録</a>
+   <a th:href="@{/menu}" class="button">メニューへ</a>
+   <a class="button">アーカイブを出力</a>
+   <a class ="button">全選択</a>
+</div>
 
 
 

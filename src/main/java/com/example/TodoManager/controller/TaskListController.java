@@ -52,6 +52,7 @@ public class TaskListController {
 
 		// ソート実行結果を取得
 		Page<Task> pages = taskRepository.findAll(pageable);
+		
 		//beanに詰め替える
 		List<TaskBean> taskbeans = new ArrayList<>();
 		int displayNo = pageNum * pageSize + 1;
