@@ -2,6 +2,11 @@ package com.example.TodoManager.bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.validation.constraints.NotNull;
 
 public class TaskBean {
 
@@ -11,6 +16,35 @@ public class TaskBean {
 	
 	private String taskContents;
 	
+	/**
+	 * 完了期限日付
+	 */
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate Date;
+	
+	/**
+	 * 完了期限時間
+	 */
+	@NotNull
+	private LocalTime deadlineTime;
+	
+	public LocalDate getDate() {
+		return Date;
+	}
+
+	public void setDate(LocalDate date) {
+		Date = date;
+	}
+
+	public LocalTime getDeadlineTime() {
+		return deadlineTime;
+	}
+
+	public void setDeadlineTime(LocalTime deadlineTime) {
+		this.deadlineTime = deadlineTime;
+	}
+
 	private LocalDateTime deadlineDate;
 	
 	private LocalDate createDate;
