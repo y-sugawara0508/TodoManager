@@ -1,77 +1,79 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>新規タスク登録</title>
-    <meta charset="UTF-8">
-</head>
-<body class="admin regist_task_input_admin">
-    <h3>新規タスク登録入力画面</h3>
-    
-    <div class="update">
-        <!-- 一つのフォームにまとめる -->
-        <form method="post" th:action="@{/task/regist/check}" th:object="${taskForm}">
-            
-            <!-- タスク名 -->
-            <div class="form">
-                <div class="label">タスク名</div>
-                <div class="input">
-                    <input type="text" th:field="*{taskName}" />
-                    <span th:errors="*{taskName}"></span>                
-                </div>
-            </div>
-            
-            <!-- 詳細説明 -->
-            <div class="form">
-                <div class="label">詳細説明</div>
-                <div class="input">
-                    <input type="text" th:field="*{taskContents}"/>
-                    <span th:errors="*{taskContents}"></span>
-                </div>
-            </div>
-            
-            <!-- 完了期限 -->
-            <div class="form">
-                <div class="label">完了期限</div>
-                <div class="label">日付</div>
-                <div class="input">
-                    <input type="date" th:field="*{deadlineDate}"/>
-                    <span th:errors="*{deadlineDate}"></span>
-                </div>
-                <div class="label">時刻</div>
-                <div class="input">
-                    <input type="time" id="timePicker" th:field="*{deadlineTime}"/>
-                    <span th:errors="*{deadlineTime}"></span>
-                </div>
-            </div>
-            
-            <!-- 重要度 -->
-            <div class="form">
-                <div class="label">重要度</div>
-                <div class="input">
-                    <select th:field="*{importanceId}">
-                        <option value="1">通常</option>
-                        <option value="2">重要</option>
-                        <option value="3">最重要</option>
-                    </select>
-                </div>
-            </div>
 
-            <!-- 確認ボタン -->
-            <div class="form">
-                <div class="input">
-                    <input type="submit" value="確認"/>
-                </div>
-            </div>
-            
-            <!-- 戻るボタン（リンク） -->
-            <div class="form">
-                <div class="input">
-                    <a href="/task/regist/input"><button type="button">戻る</button></a>
-                </div>
-            </div>
-        </form>
-    </div>
+<head>
+	<title>新規タスク登録</title>
+	<meta charset="UTF-8">
+</head>
+
+<body class="admin regist_task_input_admin">
+	<h3>新規タスク登録入力</h3>
+
+	<div class="update">
+		<form method="post" th:action="@{/task/regist/check}" th:object="${taskForm}">
+
+			<!-- タスク名 -->
+			<div class="form">
+				<div class="label">タスク名</div>
+				<div class="input">
+					<input type="text" th:field="*{taskName}" />
+					<span th:errors="*{taskName}"></span>
+				</div>
+			</div>
+
+			<!-- 詳細説明 -->
+			<div class="form">
+				<div class="label">詳細説明</div>
+				<div class="input">
+					<input type="text" th:field="*{taskContents}" />
+					<span th:errors="*{taskContents}"></span>
+				</div>
+			</div>
+
+			<!-- 完了期限 -->
+			<div class="form">
+				<div class="label">完了期限</div>
+				<div class="label">日付</div>
+				<div class="input">
+					<input type="date" th:field="*{Date}" />
+					<span th:errors="*{Date}"></span>
+				</div>
+				<div class="label">時刻</div>
+				<div class="input">
+					<input type="time" id="timePicker" th:field="*{deadlineTime}" />
+					<span th:errors="*{deadlineTime}"></span>
+				</div>
+			</div>
+
+			<!-- 重要度 -->
+			<div class="form">
+				<div class="label">重要度</div>
+				<div class="input">
+					<select th:field="*{importanceId}">
+						<option value="1">通常</option>
+						<option value="2">重要</option>
+						<option value="3">最重要</option>
+					</select>
+				</div>
+			</div>
+
+			<!-- 確認ボタン -->
+			<div class="form">
+				<div class="input">
+					<input type="submit" value="確認" />
+				</div>
+			</div>
+
+			<!-- メニュー画面に戻るボタン -->
+			<div class="form">
+				<div class="input">
+					<button type="button" onclick="location.href='/menu'">戻る</button>
+				</div>
+			</div>
+		</form>
+	</div>
 
 </body>
+
 </html>

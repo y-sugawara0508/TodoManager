@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<title>新規タスク登録完了</title>
-<meta charset="UTF-8" />
+	<meta charset="UTF-8" />
+
 <body class="admin regist_task_complete_admin">
-	<h3 class="title">新規タスク登録完了画面</h3>
+	<h3 class="title">新規タスク登録完了</h3>
+	<!--完了メッセージ-->
 	<div class="message">
-				<p class="complete_message">タスク情報を登録しました。</p>
-				<p class="back_to_menu_link"><a th:href="@{/menu}">メニュー画面へ</a></p>
-		
+		<p class="complete_message">タスク情報を登録しました。</p>
+		<!--メニュー画面に遷移する-->
+		<p class="back_to_menu_link"><a th:href="@{/menu}">メニュー画面へ</a></p>
+
 	</div>
 
 </body>
+
 </html>
