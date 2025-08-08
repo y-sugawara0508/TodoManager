@@ -3,20 +3,23 @@ package com.example.TodoManager.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.TodoManager.entity.Task;
 import com.example.TodoManager.form.TaskForm;
 import com.example.TodoManager.repository.TaskRepository;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class TaskRegistContoller {
@@ -28,36 +31,23 @@ public class TaskRegistContoller {
 	 * 新規タスク登録入力画面遷移の為のメソッド
 	 * @return 新規タスク登録入力画面のURL
 	 */
-	@RequestMapping("/task/regist/input")
-	public String showTaskRegistForm(@ModelAttribute TaskForm form) {
+	@GetMapping("/task/regist/input")
+	public String showTaskRegist(@ModelAttribute TaskForm form, HttpSession session, Model model) {
+		Integer personalId = (Integer) session.getAttribute("personalId");
+		session.setAttribute("taskform", form);
 		return "task/regist/input";
 	}
-
-	/**
-	 * 新規タスク登録確認画面の為のメソッド
-	 * @return 新規タスク登録確認画面のURL
-	 
-	@PostMapping("/task/regist/check")
-	public String taskRegistCheck(@Valid @ModelAttribute TaskForm form, BindingResult result, Model model, HttpSession session) {
-		if(result.hasErrors()) {
-			
-			System.out.println(result.getErrorCount());
-			
-			System.out.println("no");
-			System.out.println(result.hasErrors());
-			return "task/regist/input";
-		}else {
-			System.out.println("ok");
-			Integer personalId = (Integer) session.getAttribute("personalId");
-			form.setPersonalId(personalId);
-			//TaskFormをリクエストスコープに保存
-			model.addAttribute("taskForm",form);
-			return "task/regist/check";
-		}
-		
+	/** 
+	 * @param model リクエストスコープ
+	 * @param task登録フォーム
+	 * @return タスク登録画面に遷移　
+	 */
+	@PostMapping("/regist/reverse")
+	public String registReverse(TaskForm form,Model model) {
+		model.addAttribute("taskForm", form);
+		return "task/regist/input";
 	}
-	*/
-
+	
 	/**
 	 * 新規タスク登録確認画面の為のメソッドの入力チェックなし
 	 * @param form
@@ -66,19 +56,24 @@ public class TaskRegistContoller {
 	 * @return
 	 */
 	@PostMapping("/task/regist/check")
-	public String taskRegistCheck(@ModelAttribute TaskForm form, Model model, HttpSession session) {
-		session.setAttribute("date", form.getDate());
-		session.setAttribute("deadlinetime", form.getDeadlineTime());
+	public String taskRegistCheck(@Valid @ModelAttribute TaskForm form, BindingResult result, Model model,
+			HttpSession session) {
 
-		LocalDate date = (LocalDate) session.getAttribute("date");
-		LocalTime deadlinetime = (LocalTime) session.getAttribute("deadlinetime");
-
-		System.out.println(LocalDateTime.of(date, deadlinetime));
-		LocalDateTime deadlineDate = LocalDateTime.of(date, deadlinetime);
+		if (result.hasErrors()) {
+			return "task/regist/input";
+		}
+		TaskForm sessionForm = (TaskForm) session.getAttribute("taskForm");
+		form.setCreateDate(new Date());
+		//LocalDate + LocalTime = LocalDateTimeに変換
+		LocalDate date = form.getDate();
+		LocalTime deadlineTime = form.getDeadlineTime();
+		LocalDateTime deadlineDate = LocalDateTime.of(date, deadlineTime);
 		form.setDeadlineDate(deadlineDate);
-
+		//personalIDをセット
 		Integer personalId = (Integer) session.getAttribute("personalId");
 		form.setPersonalId(personalId);
+
+		//確認画面にフォームを渡す
 		model.addAttribute("taskForm", form);
 		return "task/regist/check";
 	}
@@ -86,17 +81,18 @@ public class TaskRegistContoller {
 	/**
 	 * 新規タスク登録完了画面の為のメソッド
 	 * @return　新規タスク登録完了画面URL
+	 * @param form
+	 * @param model
+	 * @param session
 	 */
 	@PostMapping("/task/regist/complete")
-	public String taskRegistComplete(TaskForm form) {
-		System.out.println(form.getDeadlineDate());
+	public String taskRegistComplete(TaskForm form,Model model) {
 		Task task = new Task();
+		BeanUtils.copyProperties(form,task);
 		task.setDeleteFlag(false);
 		task.setCompleteFlag(false);
 		task.setArchiveFlag(false);
-		BeanUtils.copyProperties(form, task, "taskId");
-		repository.save(task);
+		task =repository.save(task);
 		return "task/regist/complete";
 	}
-
 }

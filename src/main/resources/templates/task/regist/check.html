@@ -25,7 +25,7 @@
 		<div class="form">
 			<div class="label">完了期限</div>
 			<div class="label">日時</div>
-			<div class="input" th:text="${taskForm.Date}"></div>
+			<div class="input" th:text="${taskForm.date}"></div>
 			<div class="label">時刻</div>
 			<div class="input" th:text="${taskForm.deadlineTime}"></div>
 		</div>
@@ -47,22 +47,34 @@
 					<input type="hidden" th:field="*{taskName}" />
 					<input type="hidden" th:field="*{taskContents}" />
 					<input type="hidden" th:field="*{deadlineDate}" />
-					<input type="hidden" th:field="*{importanceId}" />
 					<input type="hidden" th:field="*{deadlineTime}" />
+					<input type="hidden" th:field="*{date}" />
+					<input type="hidden" th:field="*{CreateDate}" />
+					<input type="hidden" th:field="*{importanceId}" />
+					<input type="hidden" th:field="*{deleteFlag}" />
+					<input type="hidden" th:field="*{completeFlag}" />
+					<input type="hidden" th:field="*{archiveFlag}" />
+
 					<button type="submit">登録</button>
 				</div>
 			</div>
 		</form>
 
 		<!--データを保持した状態で入力画面に戻る-->
-		<form method="post" th:action="@{/task/regist/input}" th:object="${taskForm}">
+		<form method="get" th:action="@{/task/regist/input}" th:object="${taskForm}">
 			<div class="form">
 				<div class="input">
 					<input type="hidden" th:field="*{taskName}" />
 					<input type="hidden" th:field="*{taskContents}" />
 					<input type="hidden" th:field="*{deadlineDate}" />
-					<input type="hidden" th:field="*{importanceId}" />
 					<input type="hidden" th:field="*{deadlineTime}" />
+					<input type="hidden" th:field="*{date}" />
+					<input type="hidden" th:field="*{CreateDate}" />
+					<input type="hidden" th:field="*{importanceId}" />
+					<input type="hidden" th:field="*{deleteFlag}" />
+					<input type="hidden" th:field="*{completeFlag}" />
+					<input type="hidden" th:field="*{archiveFlag}" />
+
 					<button type="submit">戻る</button>
 				</div>
 			</div>

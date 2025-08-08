@@ -89,7 +89,7 @@ public class PersonalRegistController {
 	/**
 	* ユーザ登録を完了し、登録情報をデータベースに保存するメソッド
 	* "/personalRegistComplete" POSTリクエストを受け取ることで実行
-	*
+	* 
 	* @param model 情報格納オブジェクト
 	* @return 登録完了の場合のビュー名 "personalRegistComplete"、または新規ユーザ登録画面へのリダイレクト
 	* @throws IllegalAccessException    プロパティコピー時のアクセス例外
