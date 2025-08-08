@@ -7,7 +7,9 @@
 </head>
 
 <body>
-
+	<header>
+		<h1 class="title">タスク詳細表示</h1>
+	</header>	
 	<!-- 選択されたタスクの詳細説明 -->
 	<form class="update" method="get" th:action="@{/taskUpdateInput/{taskId}(taskId=${taskId})}" th:form="${taskForm}">
 		<div>
@@ -24,9 +26,9 @@
 			<div class="form">
 				<div class="label">完了期限</div>
 				<div class="label">日時</div>
-				<div class="input" th:text="${#temporals.format(task.Date,'yyyy/MM/dd')}"></div>
+				<div class="input" th:text="${#temporals.format(task.getDeadlineDateOnly(),'yyyy/MM/dd')}"></div>
 				<div class="label">時刻</div>
-				<div class="input" th:text="${#temporals.format(task.deadlineTime,'H:mm')}"></div>
+				<div class="input" th:text="${#temporals.format(task.getDeadlineTimeOnly(),'H:mm')}"></div>
 			</div>
 
 			<div class="form">
@@ -47,7 +49,7 @@
 		</div>
 	</form>
 	<!-- 戻るボタン -->
-	<form method="get" th:action="@{/backToTaskList/{taskId}(taskId=${taskId})}">
+	<form method="post" th:action="@{/backToTaskList}">
 		<div class="form">
 			<div class="label"></div>
 			<div class="input">

@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
+
 <body>
 	<h3>タスク編集完了</h3>
 	<!--完了メッセージ-->
 	<div class="message">
 		<p class="complete_message">タスク情報の編集が完了しました。</p>
 		<!--メニュー画面に遷移する-->
-		<p class="back_to_taskDetail"><a th:href="@{/}">タスク一覧表示画面へ</a></p>
+		<p class="back_to_taskDetail">
+			<div class="label"></div>
+				<div class="input" type="hidden" th:field="*{taskId}">
+					<a th:href="@{/taskDetail/{taskId}(taskId=${taskId})}"
+				th:object="${task}">タスク詳細表示画面へ</a></div></p>
 
 	</div>
 
 </body>
+
 </html>

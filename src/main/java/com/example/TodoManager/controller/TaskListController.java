@@ -57,13 +57,12 @@ public class TaskListController {
 			bean.setTaskName(task.getTaskName());
 			bean.setTaskContents(task.getTaskContents());
 			bean.setDeadlineDate(task.getDeadlineDate()); // ← ここが重要
-			bean.setCreateDate(task.getCreateDate()); // ← ここが重要
+//			bean.setCreateDate(task.getCreateDate()); // ← ここが重要
 			bean.setDeleteFlag(task.getDeleteFlag());
 			bean.setCompleteFlag(task.getCompleteFlag());
 			bean.setArchiveFlag(task.getArchiveFlag());
 			bean.setImportanceId(task.getImportanceId());
 			bean.setPersonalId(task.getPersonalId());
-			bean.setDisplayNo(displayNo++);
 			taskbeans.add(bean);
 		}
 

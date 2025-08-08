@@ -1,36 +1,53 @@
+
 package com.example.TodoManager.bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import jakarta.validation.constraints.NotNull;
-
+/**
+ * 
+ */
 public class TaskBean {
 
 	private Integer taskId;
 
 	private String taskName;
-
 	private String taskContents;
 
 	private LocalDateTime deadlineDate;
-
-	private LocalDate createDate;
+	private LocalDateTime createDate;
 
 	private Boolean deleteFlag;
-
 	private Boolean completeFlag;
-
 	private Boolean archiveFlag;
 
 	private Integer importanceId;
-
 	private Integer personalId;
 
-	private Integer displayNo;
+	// Getter: 完了期限の「日付部分」だけ取得
+	public LocalDate getDeadlineDateOnly() {
+		return deadlineDate != null ? deadlineDate.toLocalDate() : null;
+	}
+
+	// Getter: 完了期限の「時間部分」だけ取得
+	public LocalTime getDeadlineTimeOnly() {
+		return deadlineDate != null ? deadlineDate.toLocalTime() : null;
+	}
+
+	// Getter: 作成日時の「日付部分」
+	public LocalDate getCreateDateOnly() {
+		return createDate != null ? createDate.toLocalDate() : null;
+	}
+
+	// Getter: 作成日時の「時間部分」
+	public LocalTime getCreateTimeOnly() {
+		return createDate != null ? createDate.toLocalTime() : null;
+	}
+
+	public String getCompleteFlagString() {
+		return completeFlag ? "完了" : "未完了";
+	}
 
 	public Integer getTaskId() {
 		return taskId;
@@ -38,35 +55,6 @@ public class TaskBean {
 
 	public void setTaskId(Integer taskId) {
 		this.taskId = taskId;
-	}
-
-	/**
-	 * 完了期限日付
-	 */
-	@NotNull
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate Date;
-
-	/**
-	 * 完了期限時間
-	 */
-	@NotNull
-	private LocalTime deadlineTime;
-
-	public LocalDate getDate() {
-		return Date;
-	}
-
-	public void setDate(LocalDate date) {
-		Date = date;
-	}
-
-	public LocalTime getDeadlineTime() {
-		return deadlineTime;
-	}
-
-	public void setDeadlineTime(LocalTime deadlineTime) {
-		this.deadlineTime = deadlineTime;
 	}
 
 	public String getTaskName() {
@@ -89,16 +77,16 @@ public class TaskBean {
 		return deadlineDate;
 	}
 
-	public void setDeadlineDate(LocalDateTime localDateTime) {
-		this.deadlineDate = localDateTime;
+	public void setDeadlineDate(LocalDateTime deadlineDate) {
+		this.deadlineDate = deadlineDate;
 	}
 
-	public LocalDate getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDate localDate) {
-		this.createDate = localDate;
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
 	}
 
 	public Boolean getDeleteFlag() {
@@ -140,13 +128,4 @@ public class TaskBean {
 	public void setPersonalId(Integer personalId) {
 		this.personalId = personalId;
 	}
-
-	public Integer getDisplayNo() {
-		return displayNo;
-	}
-
-	public void setDisplayNo(Integer displayNo) {
-		this.displayNo = displayNo;
-	}
-
 }
