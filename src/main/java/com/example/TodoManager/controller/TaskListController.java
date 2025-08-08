@@ -1,12 +1,9 @@
 
 package com.example.TodoManager.controller;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,12 +12,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.TodoManager.bean.TaskBean;
 import com.example.TodoManager.entity.Task;
-import com.example.TodoManager.form.TaskForm;
 import com.example.TodoManager.repository.TaskRepository;
 
 @Controller
@@ -82,34 +77,5 @@ public class TaskListController {
 		//http://localhost:4444/TodoManager/list?pageNum=0&pageSize=10&sortStr=taskId_DESC
 	}
 
-	//タスク一覧表示画面から詳細表示画面に遷移するメソッド(完成)
-	@GetMapping("/taskDetail/{taskId}")
-	public String showTaskDetail(@PathVariable Integer taskId, TaskBean bean, Task task, Model model) {
-		//表示に必要な情報をentityから取得
-		task = taskRepository.getReferenceById(taskId);
-		LocalDate date = (LocalDate) task.getDeadlineDate().toLocalDate();
-		LocalTime deadlineTime = (LocalTime) task.getDeadlineDate().toLocalTime();
-		//取得した情報をbeanに保存
-		BeanUtils.copyProperties(task, bean, "createDate", "deleteFlag", "archiveFlag");
-		bean.setDate(date);
-		bean.setDeadlineTime(deadlineTime);
-		model.addAttribute("task", bean);
-		return "/taskDetail";
-	}
-
-	//詳細表示画面から編集入力画面に遷移する、かつ、編集入力画面で初期値を用意しておくメソッド
-	@GetMapping("/taskUpdateInput/{taskId}")
-	public String showTaskUpdateInput(@PathVariable Integer taskId, TaskForm form, Task task, Model model) {
-		//表示に必要な情報をentityから取得
-		task = taskRepository.getReferenceById(taskId);
-		LocalDate date = (LocalDate) task.getDeadlineDate().toLocalDate();
-		LocalTime deadlineTime = (LocalTime) task.getDeadlineDate().toLocalTime();
-		//取得した情報をformに保存
-		BeanUtils.copyProperties(task, form, "createDate", "deleteFlag", "archiveFlag");
-		form.setDate(date);
-		form.setDeadlineTime(deadlineTime);
-		model.addAttribute("task", form);
-		return "task/update/taskUpdateInput";
-	}
-
+	
 }
